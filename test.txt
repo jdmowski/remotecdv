@@ -1,3 +1,4 @@
 pierwszy wiersz
 drugi wiersz
 trzeci wiersz
+nowa funkcja
