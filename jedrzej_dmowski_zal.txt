@@ -1,0 +1,41 @@
+Jędrzej Dmowski
+
+
+-- zadanie 2
+
+select c.contactFirstName 'imię', c.contactLastName 'nazwisko', count(*) 'ile zamówień'
+from customers c join orders o on c.customerNumber = o.customerNumber
+group by c.customerNumber;
+
+
+-- 4 a
+
+select p.productName 'nazwa produktu', year(o.orderDate) rok, count(*) 'szt modelu w danym roku'
+from products p
+join orderdetails od on p.productCode = od.productCode
+join orders o on od.orderNumber = o.orderNumber
+where p.productName in ('1952 Alpine Renault 1300', '1968 Ford Mustang', '1996 Moto Guzzi 1100i')
+group by p.productName, year(o.orderDate);
+
+
+-- 4 b
+
+select p.productName 'nazwa produktu', year(o.orderDate) 'rok', month(o.orderDate) 'nr miesiąca', od.quantityOrdered*od.priceEach 'wartosc'
+from products p
+join orderdetails od on p.productCode = od.productCode
+join orders o on o.orderNumber = od.orderNumber
+where productName like '%Harley%'
+group by p.productName, year(o.orderDate), month(o.orderDate), od.quantityOrdered*od.priceEach
+order by p.productName, year(o.orderDate), month(o.orderDate);
+
+
+-- 4 c
+
+select pl.productLine 'linia produkcyjna', count(p.productCode) 'ile produktów produkuje'
+from productlines pl
+	join products p on pl.productLine=p.productLine
+group by pl.productLine
+having count(p.productCode) between 10 and 20;
+
+
+https://github.com/jdmowski/remotecdv
